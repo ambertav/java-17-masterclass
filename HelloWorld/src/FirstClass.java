@@ -4,7 +4,8 @@ public class FirstClass {
 
     // exercise 1
     /**
-     * Prints a message indicating whether the given number is positive, negative, or zero.
+     * Prints a message indicating whether the given number is positive, negative,
+     * or zero.
      * 
      * @param number The number to be checked.
      */
@@ -103,7 +104,8 @@ public class FirstClass {
      * 
      * @param valueOne The first double value to be compared.
      * @param valueTwo The second double value to be compared.
-     * @return true if the values are equal up to three decimal places, false otherwise.
+     * @return true if the values are equal up to three decimal places, false
+     *         otherwise.
      */
     public static boolean areEqualByThreeDecimalPlaces(double valueOne, double valueTwo) {
         // casting to long, multiplying by 1000 to get first three decimal places
@@ -121,7 +123,8 @@ public class FirstClass {
      * @param first  The first integer.
      * @param second The second integer.
      * @param third  The third integer.
-     * @return true if the sum of first and second is equal to third, false otherwise.
+     * @return true if the sum of first and second is equal to third, false
+     *         otherwise.
      */
     public static boolean hasEqualSum(int first, int second, int third) {
         return first + second == third;
@@ -129,7 +132,8 @@ public class FirstClass {
 
     // exercise 8
     /**
-     * Checks if any of the three numbers is a teen age (between 13 and 19, inclusive).
+     * Checks if any of the three numbers is a teen age (between 13 and 19,
+     * inclusive).
      * 
      * @param first  The first number to be checked.
      * @param second The second number to be checked.
@@ -150,5 +154,89 @@ public class FirstClass {
      */
     public static boolean isTeen(int age) {
         return age >= 13 && age <= 19;
+    }
+
+    // exercise 9
+    /**
+     * Calculates the area of a circle given its radius.
+     * 
+     * @param radius The radius of the circle.
+     * @return The area of the circle, or -1 if the radius is negative.
+     */
+    public static double circleArea(double radius) {
+        if (radius < 0)
+            return -1d;
+        else
+            return Math.PI * Math.pow(radius, 2);
+    }
+
+    /**
+     * Calculates the area of a rectangle given its dimensions.
+     * 
+     * @param x The length of one side of the rectangle.
+     * @param y The length of the other side of the rectangle.
+     * @return The area of the rectangle, or -1 if either dimension is negative.
+     */
+    public static double rectangleArea(double x, double y) {
+        if (x < 0 || y < 0)
+            return -1d;
+        else
+            return x * y;
+    }
+
+    // exercise 10
+    /**
+     * Converts the given number of minutes into years and remaining days.
+     * 
+     * @param minutes The number of minutes to be converted.
+     */
+    public static void printYearsAndDays(long minutes) {
+        if (minutes < 0)
+            System.out.println("Invalid Value");
+        else {
+            long hours = minutes / 60; // minutes to hours
+            long days = hours / 24; // hours to days
+            long years = days / 365; // days to years
+
+            // days remaining from days to whole years conversion
+            long daysRemainder = days % 365;
+
+            System.out.println(minutes + " min = " + years + " y and " + daysRemainder + " d");
+        }
+    }
+
+    // exercise 11
+    /**
+     * Compares three integers and prints a message indicating their comparison.
+     * 
+     * @param first  The first integer.
+     * @param second The second integer.
+     * @param third  The third integer.
+     */
+    public static void printEqual(int first, int second, int third) {
+        if (first < 0 || second < 0 || third < 0)
+            System.out.println("Invalid Value");
+        else {
+            if (first == second && second == third)
+                System.out.println("All numbers are equal");
+            else if (first != second && second != third && first != third)
+                System.out.println("All numbers are different");
+            else
+                System.out.println("Neither all are equal or different");
+        }
+    }
+
+    // exercise 12
+    /**
+     * Checks if a cat is playing based on the current season and temperature.
+     * 
+     * @param isSummer    Indicates whether it's summer (true) or not (false).
+     * @param temperature The temperature in Celsius.
+     * @return true if the cat is playing, false otherwise.
+     */
+    public static boolean isCatPlaying(boolean isSummer, int temperature) {
+        // true if temp between 25 and 35 inclusive, or if in summer, 25 to 45 inclusive
+        return ((isSummer && temperature >= 25 && temperature <= 45)
+                || (!isSummer && temperature >= 25 && temperature <= 35));
     }
 }
