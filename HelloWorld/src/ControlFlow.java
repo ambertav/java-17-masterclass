@@ -3,8 +3,8 @@ public class ControlFlow {
         // System.out.println(sumFirstAndLastDigit(-202));
         // System.out.println(getEvenDigitSum(123456789));
         // System.out.println(hasSameLastDigit(11, 22, 31));
+        printSquareStar(2);
     }
-
 
     // exercise 13
     /**
@@ -33,7 +33,6 @@ public class ControlFlow {
         System.out.println(word);
     }
 
-
     // exercise 14
     /**
      * Returns the number of days in the specified month of the given year.
@@ -45,31 +44,30 @@ public class ControlFlow {
      *         month or year is out of range
      */
     public static int getDaysInMonth(int month, int year) {
-    // if month or year out of range
-    if (month < 1 || month > 12)
-    return -1;
-    if (year < 1 || year > 9999)
-    return -1;
+        // if month or year out of range
+        if (month < 1 || month > 12)
+            return -1;
+        if (year < 1 || year > 9999)
+            return -1;
 
-    int days = switch (month) {
-    // february = 28
-    case 2 -> 28;
+        int days = switch (month) {
+            // february = 28
+            case 2 -> 28;
 
-    // april, june, sept, or nov = 30
-    case 4, 6, 9, 11 -> 30;
+            // april, june, sept, or nov = 30
+            case 4, 6, 9, 11 -> 30;
 
-    // else 31
-    default -> 31;
-    };
+            // else 31
+            default -> 31;
+        };
 
-    // if leap year and month of february, increment days by 1
-    boolean isLeapYear = FirstClass.isLeapYear(year);
-    if (month == 2 && isLeapYear)
-    days++;
+        // if leap year and month of february, increment days by 1
+        boolean isLeapYear = FirstClass.isLeapYear(year);
+        if (month == 2 && isLeapYear)
+        days++;
 
-    return days;
+        return days;
     }
-
 
     // exercise 15
     /**
@@ -106,7 +104,6 @@ public class ControlFlow {
         return sum;
     }
 
-
     // exercise 16
     /**
      * Determines whether a given integer is a palindrome.
@@ -133,7 +130,6 @@ public class ControlFlow {
         // return comparison between number and its reverse
         return (number == reverseNumber);
     }
-
 
     // exercise 17
     /**
@@ -162,7 +158,6 @@ public class ControlFlow {
         // calculate sum and return
         return firstDigit + lastDigit;
     }
-
 
     // exercise 18
     /**
@@ -199,7 +194,6 @@ public class ControlFlow {
         return sum;
     }
 
-
     // exercise 19
     /**
      * Checks if two given two-digit positive numbers share at least one digit.
@@ -224,7 +218,6 @@ public class ControlFlow {
         return (firstLeft == secondLeft || firstLeft == secondRight)
                 || (secondLeft == firstRight || secondRight == firstRight);
     }
-
 
     // exercise 20
     /**
@@ -265,5 +258,262 @@ public class ControlFlow {
      */
     public static boolean isValid(int number) {
         return (number >= 10 && number <= 1000);
+    }
+
+    // exercise 21
+    /**
+     * Prints all the factors of a given number.
+     *
+     * @param number The number whose factors are to be printed.
+     */
+    public static void printFactors(int number) {
+        if (number < 1)
+            System.out.println("Invalid Value");
+        else {
+            for (int i = 1; i <= number; i++) {
+                if (number % i == 0)
+                    System.out.println(i);
+            }
+        }
+    }
+
+    // exercise 22
+    /**
+     * Calculates the greatest common divisor (GCD) of two integers.
+     *
+     * @param first  The first integer.
+     * @param second The second integer.
+     * @return The greatest common divisor of the two integers, or -1 if either of
+     *         the integers is less than 10.
+     */
+    public static int getGreatestCommonDivisor(int first, int second) {
+        if (first < 10 || second < 10)
+            return -1;
+
+        int result = 1;
+
+        for (int i = 1; i <= first && i <= second; i++) {
+            if (first % i == 0 && second % i == 0)
+                result = i;
+        }
+
+        return result;
+    }
+
+    // exercise 23
+    /**
+     * Checks whether a given number is a perfect number or not.
+     *
+     * @param number The number to be checked.
+     *               A perfect number is a positive integer that is equal to the sum
+     *               of its proper divisors.
+     * @return true if the number is a perfect number, false otherwise.
+     */
+    public static boolean isPerfectNumber(int number) {
+        if (number < 1)
+            return false;
+
+        int sum = 0;
+
+        // find factors of number then sum up
+        for (int i = 1; i < number; i++) {
+            if (number % i == 0)
+                sum += i;
+        }
+
+        // return comparison between sum of factors and number
+        return sum == number;
+    }
+
+    // exercise 24
+    /**
+     * Converts a given integer into its word representation.
+     *
+     * @param number The integer to be converted.
+     */
+    public static void numberToWords(int number) {
+        // scope is positive integers
+        if (number < 0)
+            System.out.println("Invalid Value");
+
+        else {
+            // get reversed number
+            int reverse = reverse(number);
+
+            // subtract number of digits in original number and in reversed number to get
+            // leading zeroes
+            int leadingZeroes = getDigitCount(number) - getDigitCount(reverse);
+
+            if (number == 0)
+                System.out.println("Zero");
+
+            else {
+                // loop and print each digit
+                while (reverse != 0) {
+                    int lastDigit = reverse % 10;
+                    switch (lastDigit) {
+                        case 0 -> System.out.println("Zero");
+                        case 1 -> System.out.println("One");
+                        case 2 -> System.out.println("Two");
+                        case 3 -> System.out.println("Three");
+                        case 4 -> System.out.println("Four");
+                        case 5 -> System.out.println("Five");
+                        case 6 -> System.out.println("Six");
+                        case 7 -> System.out.println("Seven");
+                        case 8 -> System.out.println("Eight");
+                        case 9 -> System.out.println("Nine");
+                    }
+                    reverse /= 10;
+                }
+
+                // print zeroes if there are any leading zeroes in reversed number
+                for (int i = 0; i < leadingZeroes; i++) {
+                    System.out.println("Zero");
+                }
+            }
+        }
+    }
+
+    /**
+     * Reverses the digits of a given integer.
+     *
+     * @param number The integer to be reversed.
+     * @return The reversed integer.
+     */
+    public static int reverse(int number) {
+        int reverse = 0;
+        while (number != 0) {
+            // multiply by 10 then and add last digit (number % 10)
+            reverse = reverse * 10 + number % 10;
+            number /= 10; // discard last digit
+        }
+
+        return reverse;
+    }
+
+    /**
+     * Counts the number of digits in a given integer.
+     *
+     * @param number The integer for which to count the digits.
+     * @return The count of digits in the given integer.
+     */
+    public static int getDigitCount(int number) {
+        if (number < 0)
+            return -1;
+        if (number == 0)
+            return 1;
+
+        int digits = 0;
+
+        // loop through the increasing powers of 10 until it exceeds the number
+        // count how many iterations to determine number of digits
+        for (int i = 1; i <= number; i *= 10) {
+            digits++;
+        }
+
+        return digits;
+    }
+
+    // exercise 25
+    /**
+     * Determines whether it's possible to pack a certain amount of flour given the
+     * available bags.
+     *
+     * @param bigCount   The number of bags of 5kg flour available.
+     * @param smallCount The number of bags of 1kg flour available.
+     * @param goal       The target amount in kgs of flour to pack.
+     *
+     * @return true if it's possible to pack the desired amount of flour, false
+     *         otherwise.
+     */
+    public static boolean canPack(int bigCount, int smallCount, int goal) {
+        // scope is positive integers for all three params
+        if (bigCount < 0 || smallCount < 0 || goal < 0)
+            return false;
+
+        // total weight of big bags
+        int totalBigWeight = bigCount * 5;
+
+        // if total weight from big bags is greater than goal weight...
+        if (totalBigWeight >= goal) {
+            // calculate the remainder weight needed
+            // after using some of the big bags (5kg)
+            int remaining = goal % 5;
+
+            // return true if there are enough small bags (1kg) to account for remainder
+            if (smallCount >= remaining)
+                return true;
+
+            // if total weight from big bags is less than goal weight...
+        } else {
+            // return true if small bags accounts for difference
+            if (smallCount >= goal - totalBigWeight)
+                return true;
+        }
+
+        // otherwise, return false
+        return false;
+    }
+
+    // exercise 26
+    /**
+     * Finds the largest prime factor of a given number.
+     *
+     * @param number The number whose largest prime factor is to be found.
+     * @return The largest prime factor of the given number, or -1 if the number is
+     *         less than or equal to 1.
+     */
+    public static int getLargestPrime(int number) {
+        if (number <= 1)
+            return -1;
+
+        // initialize return variable
+        int largestPrime = -1;
+
+        // loop from 2 to square root of number to find prime factors
+        for (int i = 2; i * i <= number; i++) {
+            // while i is a factor if the number
+            // update largestPrime to current factor
+            // divide number by i to remove the factor
+            while (number % i == 0) {
+                largestPrime = i;
+                number /= i;
+            }
+        }
+
+        // if number is greater than 1 after looping, then number if the largest prime
+        if (number > 1)
+            largestPrime = number;
+
+        return largestPrime;
+    }
+
+    // exercise 27
+    /**
+     * Prints a square pattern of stars based on the given size.
+     *
+     * @param number The size of the square to be printed.
+     */
+    public static void printSquareStar(int number) {
+        if (number < 5)
+            System.out.println("Invalid Value");
+
+        else {
+            // outer loop for rows
+            for (int i = 0; i < number; i++) {
+                // inner loop for columns
+                for (int j = 0; j < number; j++) {
+                    // conditions for printing * versus space
+                    if (i == 0 || j == 0 || i == j
+                            || i == number - 1 || j == number - 1
+                            || i + j == number - 1)
+                        System.out.print("*");
+                    else
+                        System.out.print(" ");
+                }
+                // to move to next line after print each row
+                System.out.println();
+            }
+        }
     }
 }
