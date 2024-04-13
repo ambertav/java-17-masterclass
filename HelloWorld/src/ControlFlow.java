@@ -1,9 +1,10 @@
+import java.util.Scanner;
+
 public class ControlFlow {
     public static void main(String[] args) {
         // System.out.println(sumFirstAndLastDigit(-202));
         // System.out.println(getEvenDigitSum(123456789));
         // System.out.println(hasSameLastDigit(11, 22, 31));
-        printSquareStar(2);
     }
 
     // exercise 13
@@ -515,5 +516,118 @@ public class ControlFlow {
                 System.out.println();
             }
         }
+    }
+
+    // exercise 28
+    /**
+     * Reads integers from the console input, calculates the sum and average,
+     * then prints them.
+     */
+    public static void inputThenPrintSumAndAverage() {
+        Scanner scanner = new Scanner(System.in);
+
+        int sum = 0;
+        long average = 0;
+        int counter = 0;
+
+        try {
+            while (true) {
+                String input = scanner.nextLine();
+
+                try {
+                    // parse input into integer
+                    int number = Integer.parseInt(input);
+                    // cummulate sum
+                    sum += number;
+                    // increment count of inputs
+                    counter++;
+                    // calculate average
+                    average = Math.round((double) sum / counter);
+
+                } catch (NumberFormatException error) {
+                    // if input cannot be parsed into integer, break loop
+                    break;
+                }
+
+            }
+        } finally {
+            // close scanner for memory leak
+            scanner.close();
+        }
+
+        // print sum and average
+        System.out.println("SUM = " + sum + " AVG = " + average);
+    }
+
+    // exercise 29
+    /**
+     * Calculates the number of additional buckets needed to paint a given area,
+     * taking into account the area of each bucket and the number of extra buckets
+     * available.
+     *
+     * @param width         The width of the area to paint.
+     * @param height        The height of the area to paint.
+     * @param areaPerBucket The area that can be painted with one bucket of paint.
+     * @param extraBuckets  The number of extra buckets of paint available.
+     * @return The number of additional buckets needed, or -1 if any parameter is
+     *         invalid.
+     */
+    public static int getBucketCount(double width, double height, double areaPerBucket, int extraBuckets) {
+        // validate parameters
+        if (width <= 0 || height <= 0 || areaPerBucket <= 0 || extraBuckets < 0)
+            return -1;
+        // calculate area
+        double area = width * height;
+        // return difference of total buckets and extra buckets on hand
+        return getTotalBuckets(area, areaPerBucket) - extraBuckets;
+    }
+
+    /**
+     * Calculates the total number of buckets needed to paint a given area,
+     * based on the width, height, and area covered by each bucket.
+     *
+     * @param width         The width of the area to paint.
+     * @param height        The height of the area to paint.
+     * @param areaPerBucket The area that can be painted with one bucket of paint.
+     * @return The total number of buckets needed to paint the area,
+     *         or -1 if any parameter is invalid.
+     */
+    public static int getBucketCount(double width, double height, double areaPerBucket) {
+        // validate parameters
+        if (width <= 0 || height <= 0 || areaPerBucket <= 0)
+            return -1;
+        // calculate area
+        double area = width * height;
+        // return total buckets needed
+        return getTotalBuckets(area, areaPerBucket);
+    }
+
+    /**
+     * Calculates the total number of buckets needed to paint a given area,
+     * based on area covered by each bucket.
+     *
+     * @param area          The total area to paint.
+     * @param areaPerBucket The area that can be painted with one bucket of paint.
+     * @return The total number of buckets needed to paint the area,
+     *         or -1 if any parameter is invalid.
+     */
+    public static int getBucketCount(double area, double areaPerBucket) {
+        // validate parameters
+        if (area <= 0 || areaPerBucket <= 0)
+            return -1;
+        // return total buckets needed
+        return getTotalBuckets(area, areaPerBucket);
+    }
+
+    /**
+     * Calculates the total number of buckets needed to paint a given area.
+     *
+     * @param area          The total area to paint.
+     * @param areaPerBucket The area that can be painted with one bucket of paint.
+     * @return The total number of buckets needed.
+     */
+    public static int getTotalBuckets(double area, double areaPerBucket) {
+        // returns int of total buckets needed
+        return (int) Math.ceil(area / areaPerBucket);
     }
 }
