@@ -189,4 +189,88 @@ public class InheritanceOOP {
                 return firstName + " " + lastName;
         }
     }
+
+    // exercise 32
+    /**
+     * The Wall class represents a wall with width and height dimensions.
+     */
+    public class Wall {
+        private double width;
+        private double height;
+
+        /**
+         * Constructs a wall with default width and height (both set to 0).
+         */
+        public Wall() {
+            this(0, 0);
+        }
+
+        /**
+         * Constructs a wall with specified width and height.
+         * If width or height is negative, it is set to 0.
+         * 
+         * @param width  The width of the wall.
+         * @param height The height of the wall.
+         */
+        public Wall(double width, double height) {
+            if (width < 0)
+                width = 0;
+            if (height < 0)
+                height = 0;
+
+            this.width = width;
+            this.height = height;
+        }
+
+        /**
+         * Gets the width of the wall.
+         * 
+         * @return The width of the wall.
+         */
+        public double getWidth() {
+            return width;
+        }
+
+        /**
+         * Gets the height of the wall.
+         * 
+         * @return The height of the wall.
+         */
+        public double getHeight() {
+            return height;
+        }
+
+        /**
+         * Sets the width of the wall.
+         * If width is negative, it is set to 0.
+         * 
+         * @param width The width to set.
+         */
+        public void setWidth(double width) {
+            if (width < 0)
+                width = 0;
+            this.width = width;
+        }
+
+        /**
+         * Sets the height of the wall.
+         * If height is negative, it is set to 0.
+         * 
+         * @param height The height to set.
+         */
+        public void setHeight(double height) {
+            if (height < 0)
+                height = 0;
+            this.height = height;
+        }
+
+        /**
+         * Calculates and returns the area of the wall.
+         * 
+         * @return The area of the wall.
+         */
+        public double getArea() {
+            return width * height;
+        }
+    }
 }
