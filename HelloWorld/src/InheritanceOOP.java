@@ -273,4 +273,99 @@ public class InheritanceOOP {
             return width * height;
         }
     }
+
+    // exercise 33
+    /**
+     * The Point class represents a point in a 2-dimensional space with x and y
+     * coordinates.
+     */
+    public class Point {
+        private int x;
+        private int y;
+
+        /**
+         * Constructs a point at the origin (0, 0).
+         */
+        public Point() {
+            this(0, 0);
+        }
+
+        /**
+         * Constructs a point with specified x and y coordinates.
+         * 
+         * @param x The x-coordinate of the point.
+         * @param y The y-coordinate of the point.
+         */
+        public Point(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        /**
+         * Gets the x-coordinate of the point.
+         * 
+         * @return The x-coordinate of the point.
+         */
+        public int getX() {
+            return x;
+        }
+
+        /**
+         * Gets the y-coordinate of the point.
+         * 
+         * @return The y-coordinate of the point.
+         */
+        public int getY() {
+            return y;
+        }
+
+        /**
+         * Sets the x-coordinate of the point.
+         * 
+         * @param x The x-coordinate to set.
+         */
+        public void setX(int x) {
+            this.x = x;
+        }
+
+        /**
+         * Sets the y-coordinate of the point.
+         * 
+         * @param y The y-coordinate to set.
+         */
+        public void setY(int y) {
+            this.y = y;
+        }
+
+        /**
+         * Calculates the distance between this point and the origin (0, 0).
+         * 
+         * @return The distance between this point and the origin.
+         */
+        public double distance() {
+            return Math.sqrt(((this.x - 0) * (this.x - 0)) + ((this.y - 0) * (this.y - 0)));
+        }
+
+        /**
+         * Calculates the distance between this point and another point.
+         * 
+         * @param point The other point.
+         * @return The distance between this point and the other point.
+         */
+        public double distance(Point point) {
+            return Math.sqrt(((this.x - point.getX()) * (this.x - point.getX()))
+                    + ((this.y - point.getY()) * (this.y - point.getY())));
+        }
+
+        /**
+         * Calculates the distance between this point and a specified point (x, y).
+         * 
+         * @param x The x-coordinate of the specified point.
+         * @param y The y-coordinate of the specified point.
+         * @return The distance between this point and the specified point.
+         */
+        public double distance(int x, int y) {
+            return Math.sqrt(((this.x - x) * (this.x - x)) + ((this.y - y) * (this.y - y)));
+        }
+    }
 }
