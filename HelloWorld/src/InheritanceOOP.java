@@ -368,4 +368,340 @@ public class InheritanceOOP {
             return Math.sqrt(((this.x - x) * (this.x - x)) + ((this.y - y) * (this.y - y)));
         }
     }
+
+    // exericse 34
+    /**
+     * Represents a floor with a given width and length.
+     */
+    public class Floor {
+        private double width;
+        private double length;
+
+        /**
+         * Constructs a floor with the specified width and length.
+         * If width or length is negative, it sets them to 0.
+         * 
+         * @param width  the width of the floor
+         * @param length the length of the floor
+         */
+        public Floor(double width, double length) {
+            if (width < 0)
+                width = 0;
+            if (length < 0)
+                length = 0;
+
+            this.width = width;
+            this.length = length;
+
+        }
+
+        /**
+         * Calculates and returns the area of the floor.
+         * 
+         * @return the area of the floor
+         */
+        public double getArea() {
+            return this.width * this.length;
+        }
+    }
+
+    /**
+     * Represents a carpet with a given cost per square unit.
+     */
+    public class Carpet {
+        private double cost;
+
+        /**
+         * Constructs a carpet with the specified cost per square unit.
+         * If the cost is negative, it sets it to 0.
+         * 
+         * @param cost the cost per square unit of the carpet
+         */
+        public Carpet(double cost) {
+            if (cost < 0)
+                cost = 0;
+            this.cost = cost;
+        }
+
+        /**
+         * Returns the cost per square unit of the carpet.
+         * 
+         * @return the cost per square unit of the carpet
+         */
+        public double getCost() {
+            return this.cost;
+        }
+    }
+
+    /**
+     * Represents a calculator for calculating the total cost of carpeting a floor.
+     */
+    public class Calculator {
+        private Floor floor;
+        private Carpet carpet;
+
+        /**
+         * Constructs a calculator with the specified floor and carpet.
+         * 
+         * @param floor  the floor to be carpeted
+         * @param carpet the carpet to be used
+         */
+        public Calculator(Floor floor, Carpet carpet) {
+            this.floor = floor;
+            this.carpet = carpet;
+        }
+
+        /**
+         * Calculates and returns the total cost of carpeting the floor.
+         * 
+         * @return the total cost of carpeting the floor
+         */
+        public double getTotalCost() {
+            return floor.getArea() * carpet.getCost();
+        }
+    }
+
+    // exercise 35
+    /**
+     * Represents a complex number with real and imaginary parts.
+     */
+    public class ComplexNumber {
+        private double real;
+        private double imaginary;
+
+        /**
+         * Constructs a complex number with the specified real and imaginary parts.
+         * 
+         * @param real      the real part of the complex number
+         * @param imaginary the imaginary part of the complex number
+         */
+        public ComplexNumber(double real, double imaginary) {
+            this.real = real;
+            this.imaginary = imaginary;
+        }
+
+        /**
+         * Returns the real part of the complex number.
+         * 
+         * @return the real part of the complex number
+         */
+        public double getReal() {
+            return this.real;
+        }
+
+        /**
+         * Returns the imaginary part of the complex number.
+         * 
+         * @return the imaginary part of the complex number
+         */
+        public double getImaginary() {
+            return this.imaginary;
+        }
+
+        /**
+         * Adds the specified real and imaginary parts to this complex number.
+         * 
+         * @param real      the real part to be added
+         * @param imaginary the imaginary part to be added
+         */
+        public void add(double real, double imaginary) {
+            this.real += real;
+            this.imaginary += imaginary;
+        }
+
+        /**
+         * Adds the specified complex number to this complex number.
+         * 
+         * @param second the complex number to be added
+         */
+        public void add(ComplexNumber second) {
+            add(second.real, second.imaginary);
+        }
+
+        /**
+         * Subtracts the specified real and imaginary parts from this complex number.
+         * 
+         * @param real      the real part to be subtracted
+         * @param imaginary the imaginary part to be subtracted
+         */
+        public void subtract(double real, double imaginary) {
+            this.real -= real;
+            this.imaginary -= imaginary;
+        }
+
+        /**
+         * Subtracts the specified complex number from this complex number.
+         * 
+         * @param second the complex number to be subtracted
+         */
+        public void subtract(ComplexNumber second) {
+            subtract(second.real, second.imaginary);
+        }
+    }
+
+    // exercise 36
+    /**
+     * Represents a circle with a given radius.
+     */
+    public class Circle {
+        private double radius;
+
+        /**
+         * Constructs a circle with the specified radius.
+         * 
+         * @param radius the radius of the circle
+         */
+        public Circle(double radius) {
+            if (radius < 0)
+                radius = 0;
+            this.radius = radius;
+        }
+
+        /**
+         * Returns the radius of the circle.
+         * 
+         * @return the radius of the circle
+         */
+        public double getRadius() {
+            return this.radius;
+        }
+
+        /**
+         * Calculates and returns the area of the circle.
+         * 
+         * @return the area of the circle
+         */
+        public double getArea() {
+            return radius * radius * Math.PI;
+        }
+    }
+
+    /**
+     * Represents a cylinder, a subclass of Circle, with a given height.
+     */
+    public class Cylinder extends Circle {
+        private double height;
+
+        /**
+         * Constructs a cylinder with the specified radius and height.
+         * 
+         * @param radius the radius of the base circle of the cylinder
+         * @param height the height of the cylinder
+         */
+        public Cylinder(double radius, double height) {
+            super(radius);
+
+            if (height < 0)
+                height = 0;
+            this.height = height;
+        }
+
+        /**
+         * Returns the height of the cylinder.
+         * 
+         * @return the height of the cylinder
+         */
+        public double getHeight() {
+            return this.height;
+        }
+
+        /**
+         * Calculates and returns the volume of the cylinder.
+         * 
+         * @return the volume of the cylinder
+         */
+        public double getVolume() {
+            return super.getArea() * this.height;
+        }
+    }
+
+    // exercise 37
+    /**
+     * Represents a rectangle with a given width and length.
+     */
+    public class Rectangle {
+        private double width;
+        private double length;
+
+        /**
+         * Constructs a rectangle with the specified width and length.
+         * 
+         * @param width  the width of the rectangle
+         * @param length the length of the rectangle
+         */
+        public Rectangle(double width, double length) {
+            if (width < 0)
+                width = 0;
+            if (length < 0)
+                length = 0;
+            this.width = width;
+            this.length = length;
+        }
+
+        /**
+         * Returns the width of the rectangle.
+         * 
+         * @return the width of the rectangle
+         */
+        public double getWidth() {
+            return this.width;
+        }
+
+        /**
+         * Returns the length of the rectangle.
+         * 
+         * @return the length of the rectangle
+         */
+        public double getLength() {
+            return this.length;
+        }
+
+        /**
+         * Calculates and returns the area of the rectangle.
+         * 
+         * @return the area of the rectangle
+         */
+        public double getArea() {
+            return this.width * this.length;
+        }
+    }
+
+    /**
+     * Represents a cuboid, a subclass of Rectangle, with a given height.
+     */
+    public class Cuboid extends Rectangle {
+        private double height;
+
+        /**
+         * Constructs a cuboid with the specified width, length, and height.
+         * 
+         * @param width  the width of the base rectangle of the cuboid
+         * @param length the length of the base rectangle of the cuboid
+         * @param height the height of the cuboid
+         */
+        public Cuboid(double width, double length, double height) {
+            super(width, length);
+            if (height < 0)
+                height = 0;
+            this.height = height;
+        }
+
+        /**
+         * Returns the height of the cuboid.
+         * 
+         * @return the height of the cuboid
+         */
+        public double getHeight() {
+            return this.height;
+        }
+
+        /**
+         * Calculates and returns the volume of the cuboid.
+         * 
+         * @return the volume of the cuboid
+         */
+        public double getVolume() {
+            return super.getArea() * this.height;
+        }
+    }
 }
