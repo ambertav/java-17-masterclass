@@ -256,4 +256,71 @@ public class PolymorphismOOP {
             this.bed.make();
         }
     }
+
+    // exercise 39
+    /**
+     * The Printer class simulates a basic printer with toner level tracking,
+     * page printing functionality, and support for duplex printing.
+     */
+    public class Printer {
+        private int tonerLevel;
+        private int pagesPrinted;
+        private boolean duplex;
+
+        /**
+         * Constructs a new Printer object with the given toner level and duplex
+         * setting.
+         *
+         * @param tonerLevel The initial toner level of the printer (0 to 100).
+         *                   If the provided toner level is outside this range,
+         *                   -1 is set to indicate an error.
+         * @param duplex     A boolean value indicating whether the printer supports
+         *                   duplex printing.
+         */
+        public Printer(int tonerLevel, boolean duplex) {
+            if (tonerLevel < -1 || tonerLevel > 100)
+                this.tonerLevel = -1;
+            else
+                this.tonerLevel = tonerLevel;
+
+            this.pagesPrinted = 0;
+            this.duplex = duplex;
+        }
+
+        /**
+         * Adds toner to the printer, updating the toner level.
+         *
+         * @param tonerAmount The amount of toner to add (1 to 100).
+         * @return The updated toner level after adding toner, or -1 if the toner amount
+         *         is invalid
+         *         or exceeds the maximum toner level.
+         */
+        public int addToner(int tonerAmount) {
+            if (tonerAmount <= 0 || tonerAmount > 100 || this.tonerLevel + tonerAmount > 100)
+                return -1;
+            this.tonerLevel += tonerAmount;
+            return this.tonerLevel;
+        }
+
+        /**
+         * Simulates printing a certain number of pages.
+         *
+         * @param pages The number of pages to print.
+         * @return The actual number of pages printed.
+         */
+        public int printPages(int pages) {
+            int pagesToPrint = this.duplex ? pages / 2 + pages % 2 : pages;
+            this.pagesPrinted += pagesToPrint;
+            return pagesToPrint;
+        }
+
+        /**
+         * Retrieves the total number of pages printed by the printer.
+         *
+         * @return The total number of pages printed.
+         */
+        public int getPagesPrinted() {
+            return this.pagesPrinted;
+        }
+    }
 }
