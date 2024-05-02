@@ -323,4 +323,119 @@ public class PolymorphismOOP {
             return this.pagesPrinted;
         }
     }
+
+    // exercise 40
+    /**
+     * A class representing a generic car.
+     */
+    public class Car {
+        private boolean engine;
+        private int cylinders;
+        private String name;
+        private int wheels;
+
+        /**
+         * Constructs a new Car object with the given number of cylinders and name.
+         * 
+         * @param cylinders the number of cylinders in the car's engine
+         * @param name      the name of the car
+         */
+        public Car(int cylinders, String name) {
+            this.cylinders = cylinders;
+            this.name = name;
+            this.engine = true;
+            this.wheels = 4;
+        }
+
+        /**
+         * Gets the number of cylinders in the car's engine.
+         * 
+         * @return the number of cylinders
+         */
+        public int getCylinders() {
+            return this.cylinders;
+        }
+
+        /**
+         * Gets the name of the car.
+         * 
+         * @return the name of the car
+         */
+        public String getName() {
+            return this.name;
+        }
+
+        /**
+         * Starts the car's engine.
+         * 
+         * @return a string indicating that the engine has started
+         */
+        public String startEngine() {
+            return getClass().getSimpleName() + " -> startEngine()";
+        }
+
+        /**
+         * Accelerates the car.
+         * 
+         * @return a string indicating that the car is accelerating
+         */
+        public String accelerate() {
+            return getClass().getSimpleName() + " -> accelerate()";
+        }
+
+        /**
+         * Applies brakes to the car.
+         * 
+         * @return a string indicating that the car is braking
+         */
+        public String brake() {
+            return getClass().getSimpleName() + " -> brake()";
+        }
+    }
+
+    /**
+     * A subclass of Car representing a Mitsubishi car.
+     */
+    public class Mitsubishi extends Car {
+        /**
+         * Constructs a new Mitsubishi object with the given number of cylinders and
+         * name.
+         * 
+         * @param cylinders the number of cylinders in the car's engine
+         * @param name      the name of the car
+         */
+        public Mitsubishi(int cylinders, String name) {
+            super(cylinders, name);
+        }
+    }
+
+    /**
+     * A subclass of Car representing a Holden car.
+     */
+    public class Holden extends Car {
+        /**
+         * Constructs a new Holden object with the given number of cylinders and name.
+         * 
+         * @param cylinders the number of cylinders in the car's engine
+         * @param name      the name of the car
+         */
+        public Holden(int cylinders, String name) {
+            super(cylinders, name);
+        }
+    }
+
+    /**
+     * A subclass of Car representing a Ford car.
+     */
+    public class Ford extends Car {
+        /**
+         * Constructs a new Ford object with the given number of cylinders and name.
+         * 
+         * @param cylinders the number of cylinders in the car's engine
+         * @param name      the name of the car
+         */
+        public Ford(int cylinders, String name) {
+            super(cylinders, name);
+        }
+    }
 }
