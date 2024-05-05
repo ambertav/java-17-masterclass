@@ -1,6 +1,7 @@
 import java.util.Scanner;
+import java.util.Arrays;
 
-public class Arrays {
+public class ArraySection {
 
     public static void main(String[] args) {
 
@@ -178,6 +179,67 @@ public class Arrays {
             }
 
             return arr;
+        }
+    }
+
+    // exericse 42
+    /**
+     * A class to perform operations related to finding the minimum element in an
+     * array.
+     */
+    public class MinimumElement {
+        /**
+         * Reads an integer from the console input.
+         *
+         * @return The integer entered by the user.
+         */
+        public static int readInteger() {
+            Scanner scanner = new Scanner(System.in);
+            System.out.printf("Enter an integer\n");
+
+            int integer = scanner.nextInt();
+            scanner.close();
+            return integer;
+        }
+
+        /**
+         * Reads integer elements from the console input.
+         *
+         * @param length The number of elements to be entered.
+         * @return An array containing the entered integer values.
+         */
+        public static int[] readElements(int length) {
+            int[] array = new int[length];
+            int counter = 0;
+            Scanner scanner = new Scanner(System.in);
+            System.out.printf("Enter %d integer values:\n", length);
+
+            try {
+                while (counter < length) {
+                    String input = scanner.nextLine();
+                    try {
+                        int integer = Integer.parseInt(input);
+                        array[counter] = integer;
+                        counter++;
+                    } catch (NumberFormatException error) {
+                        System.out.println("Please enter a valid integer.");
+                    }
+                }
+            } finally {
+                scanner.close();
+            }
+            return array;
+        }
+
+        /**
+         * Finds the minimum value in an array.
+         *
+         * @param array The array to find the minimum value from.
+         * @return The minimum value in the array.
+         */
+        public int findMin(int[] array) {
+            Arrays.sort(array);
+            return array[0];
         }
     }
 
