@@ -268,4 +268,31 @@ public class ArraySection {
             return reversed;
         }
     }
+
+    // notes on nested arrays
+    public class MestedArrays {
+        public static void main(String[] args) {
+            int[][] array = new int[4][4];
+            System.out.println(Arrays.toString(array));
+           for (int[] outer : array) {
+                System.out.println(Arrays.toString(outer));
+            }
+
+            for (int i = 0; i < array.length; i++) {
+                var innerArray = array[i];
+                for (int j = 0; j < innerArray.length; j++) {
+                    array[i][j] = (i * 10) + (j + 1);
+                }
+            }
+    
+            for (var outer : array) {
+                for (var element : outer) {
+                    System.out.println(element);
+                }
+            }
+    
+            System.out.println(Arrays.deepToString(array));
+    
+        }
+    }
 }
