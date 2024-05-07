@@ -238,9 +238,34 @@ public class ArraySection {
          * @return The minimum value in the array.
          */
         public int findMin(int[] array) {
-            Arrays.sort(array);
-            return array[0];
+            int min = Integer.MAX_VALUE;
+            for (int element : array) {
+                if (element < min) {
+                    min = element;
+                }
+            }
+            return min;
         }
     }
 
+    // exercise 43
+    /**
+     * Utility class to reverse an integer array.
+     */
+    public class ReverseArray {
+        /**
+         * Reverses the elements of the given integer array.
+         *
+         * @param array the integer array to be reversed
+         * @return the reversed integer array
+         */
+        public static int[] reverse(int[] array) {
+            int[] reversed = new int[array.length];
+            int maxIndex = array.length - 1;
+            for (int element : array) {
+                reversed[maxIndex--] = element;
+            }
+            return reversed;
+        }
+    }
 }
