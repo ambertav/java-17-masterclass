@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.util.Arrays;
+import java.util.ArrayList;
 
 public class ArraySection {
 
@@ -274,7 +275,7 @@ public class ArraySection {
         public static void main(String[] args) {
             int[][] array = new int[4][4];
             System.out.println(Arrays.toString(array));
-           for (int[] outer : array) {
+            for (int[] outer : array) {
                 System.out.println(Arrays.toString(outer));
             }
 
@@ -284,15 +285,181 @@ public class ArraySection {
                     array[i][j] = (i * 10) + (j + 1);
                 }
             }
-    
+
             for (var outer : array) {
                 for (var element : outer) {
                     System.out.println(element);
                 }
             }
-    
+
             System.out.println(Arrays.deepToString(array));
-    
+
+        }
+    }
+
+    // exercise 44
+    /**
+     * Represents a mobile phone with a list of contacts.
+     */
+    public class MobilePhone {
+        private String myNumber;
+        private ArrayList<Contact> myContacts;
+
+        /**
+         * Constructs a new MobilePhone object with the specified phone number.
+         * Initializes an empty list of contacts.
+         * 
+         * @param myNumber The phone number associated with the mobile phone.
+         */
+        public MobilePhone(String myNumber) {
+            this.myNumber = myNumber;
+            this.myContacts = new ArrayList<>();
+        }
+
+        /**
+         * Adds a new contact to the mobile phone's contact list.
+         * 
+         * @param newContact The contact to be added.
+         * @return true if the contact was added successfully, false if the contact
+         *         already exists.
+         */
+        public boolean addNewContact(Contact newContact) {
+            int index = this.findContact(newContact);
+            if (index == -1) {
+                this.myContacts.add(newContact);
+                return true;
+            } else
+                return false;
+        }
+
+        /**
+         * Updates an existing contact in the mobile phone's contact list.
+         * 
+         * @param oldContact The existing contact to be updated.
+         * @param newContact The new contact information.
+         * @return true if the contact was updated successfully, false if the old
+         *         contact does not exist.
+         */
+        public boolean updateContact(Contact oldContact, Contact newContact) {
+            int indexOfContact = this.findContact(oldContact);
+            if (indexOfContact == -1)
+                return false;
+            else {
+                this.myContacts.set(indexOfContact, newContact);
+                return true;
+            }
+        }
+
+        /**
+         * Removes a contact from the mobile phone's contact list.
+         * 
+         * @param contact The contact to be removed.
+         * @return true if the contact was removed successfully, false if the contact
+         *         does not exist.
+         */
+        public boolean removeContact(Contact contact) {
+            return this.myContacts.remove(contact);
+        }
+
+        /**
+         * Finds the index of a contact in the contact list.
+         * 
+         * @param contact The contact to search for.
+         * @return The index of the contact in the contact list, or -1 if the contact is
+         *         not found.
+         */
+        private int findContact(Contact contact) {
+            return this.myContacts.indexOf(contact);
+        }
+
+        /**
+         * Finds the index of a contact by name in the contact list.
+         * 
+         * @param name The name of the contact to search for.
+         * @return The index of the contact in the contact list, or -1 if the contact is
+         *         not found.
+         */
+        private int findContact(String name) {
+            for (int i = 0; i < this.myContacts.size(); i++) {
+                if (this.myContacts.get(i).getName() == name)
+                    return i;
+            }
+
+            return -1;
+        }
+
+        /**
+         * Finds a contact by name in the contact list.
+         * 
+         * @param name The name of the contact to search for.
+         * @return The contact with the specified name, or null if the contact is not
+         *         found.
+         */
+        public Contact queryContact(String name) {
+            for (Contact contact : this.myContacts) {
+                if (contact.getName() == name)
+                    return contact;
+            }
+            return null;
+        }
+
+        /**
+         * Prints the list of contacts.
+         */
+        public void printContacts() {
+            System.out.println("Contact List:");
+            for (int i = 0; i < this.myContacts.size(); i++) {
+                Contact currentContact = this.myContacts.get(i);
+                System.out.printf("%d. %s -> %s", i + 1, currentContact.getName(), currentContact.getPhoneNumber());
+            }
+        }
+    }
+
+    /**
+     * Represents a contact with a name and a phone number.
+     */
+    public static class Contact {
+        private String name;
+        private String phoneNumber;
+
+        /**
+         * Constructs a new Contact object with the specified name and phone number.
+         * 
+         * @param name        The name of the contact.
+         * @param phoneNumber The phone number of the contact.
+         */
+        public Contact(String name, String phoneNumber) {
+            this.name = name;
+            this.phoneNumber = phoneNumber;
+        }
+
+        /**
+         * Gets the name of the contact.
+         * 
+         * @return The name of the contact.
+         */
+        public String getName() {
+            return this.name;
+        }
+
+        /**
+         * Gets the phone number of the contact.
+         * 
+         * @return The phone number of the contact.
+         */
+        public String getPhoneNumber() {
+            return this.phoneNumber;
+        }
+
+        /**
+         * Creates a new Contact object with the specified name and phone number.
+         * 
+         * @param name        The name of the contact.
+         * @param phoneNumber The phone number of the contact.
+         * @return A new Contact object.
+         */
+        public static Contact createContact(String name, String phoneNumber) {
+            return new Contact(name, phoneNumber);
         }
     }
 }
