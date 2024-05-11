@@ -368,8 +368,13 @@ public class ArraySection {
          * @return The index of the contact in the contact list, or -1 if the contact is
          *         not found.
          */
-        private int findContact(Contact contact) {
-            return this.myContacts.indexOf(contact);
+        private int findContact(Contact contactToFind) {
+            for (int i = 0; i < this.myContacts.size(); i++) {
+                if (this.myContacts.get(i).getPhoneNumber() == contactToFind.getPhoneNumber())
+                    return i;
+            }
+
+            return -1;
         }
 
         /**
