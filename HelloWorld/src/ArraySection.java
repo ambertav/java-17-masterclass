@@ -1,4 +1,5 @@
 import java.util.Scanner;
+
 import java.util.Arrays;
 import java.util.ArrayList;
 
@@ -6,17 +7,38 @@ public class ArraySection {
 
     public static void main(String[] args) {
 
-        int[] array = SortedArray.getIntegers(5);
+        // int[] array = SortedArray.getIntegers(5);
 
-        System.err.println("\n");
-        System.err.println("Here is an array from the created integers: ");
-        SortedArray.printArray(array);
+        // System.err.println("\n");
+        // System.err.println("Here is an array from the created integers: ");
+        // SortedArray.printArray(array);
 
-        int[] sorted = SortedArray.sortIntegers(array);
-        System.err.println("\n");
+        // int[] sorted = SortedArray.sortIntegers(array);
+        // System.err.println("\n");
 
-        System.err.println("Here is that same array, sorted in descending order: ");
-        SortedArray.printArray(sorted);
+        // System.err.println("Here is that same array, sorted in descending order: ");
+        // SortedArray.printArray(sorted);
+
+        Bank bank = new Bank("National Bank");
+
+        // Test 1: Add a new branch
+        System.out.println(bank.addBranch("Downtown")); // Expected output: true
+
+        // Test 2: Add a new customer to an existing branch
+        System.out.println(bank.addCustomer("Downtown", "Alice", 100.50)); // Expected output: true
+
+        // Test 3: Add a transaction for an existing customer
+        System.out.println(bank.addCustomerTransaction("Downtown", "Alice", 50.75)); // Expected output: true
+
+        // Test 4: List customers with transactions for a branch
+        bank.listCustomers("Downtown", true); // Expected output: Customer details for branch: Downtown
+                                              // Customer: Alice
+                                              // Transactions:
+                                              // $100.50 (deposit)
+                                              // $50.75 (deposit)
+
+        // Test 5: Attempt to add a new branch with an existing name
+        System.out.println(bank.addBranch("Downtown")); // Expected output: false
 
     }
 
@@ -465,6 +487,253 @@ public class ArraySection {
          */
         public static Contact createContact(String name, String phoneNumber) {
             return new Contact(name, phoneNumber);
+        }
+    }
+
+    // exercise 45
+    /**
+     * The Bank class represents a bank with branches and customers.
+     */
+
+    public static class Bank {
+        private String name;
+        private ArrayList<Branch> branches;
+
+        /**
+         * Constructs a new Bank with the given name.
+         *
+         * @param name the name of the bank
+         */
+        public Bank(String name) {
+            this.name = name;
+            this.branches = new ArrayList<Branch>();
+        }
+
+        /**
+         * Adds a new branch to the bank.
+         *
+         * @param nameOfBranch the name of the branch
+         * @return true if the branch was added successfully, false if a branch with the
+         *         given name already exists
+         */
+        public boolean addBranch(String nameOfBranch) {
+            if (findBranch(nameOfBranch) == null) {
+                this.branches.add(new Branch(nameOfBranch));
+                return true;
+            } else
+                return false;
+        }
+
+        /**
+         * Adds a new customer to a branch with an initial transaction.
+         *
+         * @param nameOfBranch   the name of the branch
+         * @param nameOfCustomer the name of the customer
+         * @param transaction    the initial transaction amount
+         * @return true if the customer was added successfully, false if the branch or
+         *         customer already exists
+         */
+        public boolean addCustomer(String nameOfBranch, String nameOfCustomer, double transaction) {
+            Branch branch = findBranch(nameOfBranch);
+            if (branch == null)
+                return false;
+            if (branch.findCustomer(nameOfCustomer) != null)
+                return false;
+            branch.newCustomer(nameOfCustomer, transaction);
+            return true;
+        }
+
+        /**
+         * Adds a transaction for an existing customer at a branch.
+         *
+         * @param nameOfBranch   the name of the branch
+         * @param nameOfCustomer the name of the customer
+         * @param transaction    the transaction amount
+         * @return true if the transaction was added successfully, false if the branch
+         *         or customer does not exist
+         */
+        public boolean addCustomerTransaction(String nameOfBranch, String nameOfCustomer, double transaction) {
+            Branch branch = findBranch(nameOfBranch);
+            if (branch == null)
+                return false;
+            else
+                return branch.addCustomerTransaction(nameOfCustomer, transaction);
+        }
+
+        /**
+         * Finds a branch by name.
+         *
+         * @param nameOfBranch the name of the branch
+         * @return the Branch object if found, null otherwise
+         */
+        public Branch findBranch(String nameOfBranch) {
+            for (Branch branch : this.branches) {
+                if (branch.getName().equalsIgnoreCase(nameOfBranch))
+                    return branch;
+            }
+
+            return null;
+        }
+
+        /**
+         * Lists customers of a branch with optional transaction details.
+         *
+         * @param nameOfBranch      the name of the branch
+         * @param printTransactions if true, prints transactions of each customer
+         * @return true if the branch exists and customers are listed, false otherwise
+         */
+        public boolean listCustomers(String nameOfBranch, boolean printTransactions) {
+            Branch branch = findBranch(nameOfBranch);
+            if (branch == null)
+                return false;
+
+            System.out.printf("Customer details for branch: %s \n", branch.getName());
+            for (Customer customer : branch.getCustomers()) {
+                System.out.printf("Customer: %s \n", customer.getName());
+                if (printTransactions) {
+                    ArrayList<Double> transactions = customer.getTransactions();
+                    System.out.println("Transactions: ");
+                    for (Double transaction : transactions) {
+                        System.out.printf("$%10.2f (%s)%n", transaction, transaction < 0 ? "withdrawal" : "deposit");
+                    }
+                }
+            }
+
+            return true;
+        }
+
+    }
+
+    /**
+     * The Branch class represents a branch of a bank with customers.
+     */
+    public static class Branch {
+        private String name;
+        private ArrayList<Customer> customers;
+
+        /**
+         * Constructs a new Branch with the given name.
+         *
+         * @param name the name of the branch
+         */
+        public Branch(String name) {
+            this.name = name;
+            this.customers = new ArrayList<Customer>();
+        }
+
+        /**
+         * Gets the name of the branch.
+         *
+         * @return the name of the branch
+         */
+        public String getName() {
+            return this.name;
+        }
+
+        /**
+         * Gets the list of customers at the branch.
+         *
+         * @return the list of customers
+         */
+        public ArrayList<Customer> getCustomers() {
+            return this.customers;
+        }
+
+        /**
+         * Adds a new customer to the branch with an initial transaction.
+         *
+         * @param nameOfCustomer     the name of the customer
+         * @param initialTransaction the initial transaction amount
+         * @return true if the customer was added successfully, false if the customer
+         *         already exists
+         */
+        public boolean newCustomer(String nameOfCustomer, double initialTransaction) {
+            if (findCustomer(nameOfCustomer) == null) {
+                Customer customer = new Customer(nameOfCustomer, initialTransaction);
+                this.customers.add(customer);
+                return true;
+            } else
+                return false;
+        }
+
+        /**
+         * Adds a transaction for an existing customer.
+         *
+         * @param nameOfCustomer the name of the customer
+         * @param transaction    the transaction amount
+         * @return true if the transaction was added successfully, false if the customer
+         *         does not exist
+         */
+        public boolean addCustomerTransaction(String nameOfCustomer, double transaction) {
+            Customer customer = findCustomer(nameOfCustomer);
+            if (customer == null)
+                return false;
+            else {
+                customer.addTransaction(transaction);
+                return true;
+            }
+        }
+
+        /**
+         * Finds a customer by name.
+         *
+         * @param nameOfCustomer the name of the customer
+         * @return the Customer object if found, null otherwise
+         */
+        public Customer findCustomer(String nameOfCustomer) {
+            for (Customer customer : this.customers) {
+                if (customer.getName().equalsIgnoreCase(nameOfCustomer))
+                    return customer;
+            }
+
+            return null;
+        }
+    }
+
+    /**
+     * The Customer class represents a customer of a bank branch with transactions.
+     */
+    public static class Customer {
+        private String name;
+        private ArrayList<Double> transactions;
+
+        /**
+         * Constructs a new Customer with the given name and initial transaction.
+         *
+         * @param name               the name of the customer
+         * @param initialTransaction the initial transaction amount
+         */
+        public Customer(String name, double initialTransaction) {
+            this.name = name;
+            this.transactions = new ArrayList<Double>();
+            this.transactions.add(initialTransaction);
+        }
+
+        /**
+         * Gets the name of the customer.
+         *
+         * @return the name of the customer
+         */
+        public String getName() {
+            return this.name;
+        }
+
+        /**
+         * Gets the list of transactions of the customer.
+         *
+         * @return the list of transactions
+         */
+        public ArrayList<Double> getTransactions() {
+            return this.transactions;
+        }
+
+        /**
+         * Adds a transaction to the customer's transaction list.
+         *
+         * @param transaction the transaction amount
+         */
+        public void addTransaction(double transaction) {
+            this.transactions.add(transaction);
         }
     }
 }
